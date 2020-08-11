@@ -7,15 +7,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 class InstaFollower():
 
-    '''Constructor'''
     def __init__(self, username, password):
+        '''Constructor'''
         self.driver = webdriver.Chrome("/Users/robbyhecht/chromedriver")
         self.username = username
         self.password = password
         self.driver.implicitly_wait(10)
 
-    '''Sign into site'''
     def signIn(self): # self is the equivalent of driver as initialized above
+        '''Sign into site'''
         self.driver.get('https://www.instagram.com/accounts/login/')
 
         # capture username and password input fields
@@ -34,8 +34,8 @@ class InstaFollower():
         # click "not now" for turning on notifications
         self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div[3]/button[2]').click()
 
-    '''Follow a single user'''
     def followWithUsername(self, username):
+        '''Follow a single user'''
         self.driver.get('https://www.instagram.com/' + username + '/')
         time.sleep(2)
         followButton = self.driver.find_element_by_css_selector('button')
@@ -45,8 +45,8 @@ class InstaFollower():
         else:
             print("You are already following this user")
 
-    '''Unfollow the user'''
     def unfollowWithUsername(self, username):
+        '''Unfollow the user'''
         self.driver.get('https://www.instagram.com/' + username + '/')
         time.sleep(2)
         followButton = self.driver.find_elements_by_css_selector('button')[1]
@@ -58,8 +58,8 @@ class InstaFollower():
         else:
             print("You are not following this user")
 
-    '''Print a list of user's followers'''
     def printUserFollowers(self, username, max):
+        '''Print a list of user's followers'''
         # go to user's page
         self.driver.get('https://www.instagram.com/' + username)
         # click the followers button to bring up followers modal
@@ -99,10 +99,10 @@ class InstaFollower():
         print(len(followers))
         return followers
 
-    '''Close the browser window'''
     def closeBrowser(self):
+        '''Close the browser window'''
         self.driver.close()
 
-    '''Exit the test run and browser''' 
     def __exit__(self, exc_type, exc_value, traceback):
+        '''Exit the test run and browser''' 
         self.closeBrowser()
